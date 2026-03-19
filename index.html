@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A-Frame Speed Runner</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/MozillaReality/ammo.js@8bbc0ea/builds/ammo.wasm.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-physics-system@v4.2.4/dist/aframe-physics-system.js"></script>
+    <script defer src="./src/game-state.js"></script>
+    <script defer src="./src/game.js"></script>
+  </head>
+  <body>
+    <section class="hud" aria-live="polite">
+      <h1>Spike Run</h1>
+      <div class="hud-grid">
+        <div class="hud-item"><span class="hud-label">Score</span><span class="hud-value" id="score-value">0</span></div>
+        <div class="hud-item"><span class="hud-label">Speed</span><span class="hud-value" id="speed-value">18</span></div>
+        <div class="hud-item"><span class="hud-label">Time</span><span class="hud-value" id="time-value">0.0</span></div>
+        <div class="hud-item"><span class="hud-label">Status</span><span class="hud-value" id="status-value">Press Start</span></div>
+      </div>
+      <p class="hud-tip">`A/D` или стрелки для смены полосы. Машина летит сама, тебе нужно уворачиваться от шипов на скорости.</p>
+    </section>
+
+    <div class="overlay is-visible" id="start-overlay">
+      <div class="overlay-card">
+        <h2>Spike Run</h2>
+        <p>Три полосы, растущая скорость, шипы впереди. Продержись до финиша.</p>
+        <button id="start-button" type="button">Start Run</button>
+      </div>
+    </div>
+
+    <div class="overlay" id="result-overlay">
+      <div class="overlay-card">
+        <h2 id="result-title">Run Finished</h2>
+        <p id="result-summary">You survived.</p>
+        <p id="result-score">Final score: 0</p>
+        <button id="restart-button" type="button">Restart</button>
+      </div>
+    </div>
+
+    <a-scene
+      background="color: #07111a"
+      physics="driver: ammo; debug: false; gravity: -9.8"
+      renderer="colorManagement: true; physicallyCorrectLights: true"
+      embedded>
+      <a-assets>
+        <img id="ground-texture" src="./assets/textures/ground.svg" alt="Ground texture">
+        <img id="crystal-texture" src="./assets/textures/crystal.svg" alt="Spike texture">
+        <img id="panel-image" src="./assets/images/panel.svg" alt="Panel image">
+        <audio id="lane-sound" src="./assets/audio/collect.wav" preload="auto"></audio>
+        <audio id="hit-sound" src="./assets/audio/hit.wav" preload="auto"></audio>
+        <audio id="win-sound" src="./assets/audio/win.wav" preload="auto"></audio>
+        <audio id="ambient-sound" src="./assets/audio/ambient.wav" preload="auto" loop></audio>
+        <a-asset-item id="centerpiece-model" src="./assets/models/centerpiece.glb"></a-asset-item>
+      </a-assets>
+
+      <a-sky color="#6dc6ff"></a-sky>
+      <a-entity light="type: ambient; intensity: 0.7; color: #d8f8ff"></a-entity>
+      <a-entity light="type: directional; intensity: 1.0; color: #fff0d1" position="8 12 3"></a-entity>
+
+      <a-entity id="road-root">
+        <a-plane
+          rotation="-90 0 0"
+          position="0 0 -35"
+          width="12"
+          height="180"
+          color="#20262d"
+          material="src: #ground-texture; repeat: 2 32; roughness: 0.95"
+          static-body
+          shadow="receive: true">
+        </a-plane>
+
+        <a-plane rotation="-90 0 0" position="0 0.01 -35" width="0.18" height="180" color="#f5f0c8"></a-plane>
+        <a-plane rotation="-90 0 0" position="-2.05 0.01 -35" width="0.14" height="180" color="#f5f0c8" material="opacity: 0.9"></a-plane>
+        <a-plane rotation="-90 0 0" position="2.05 0.01 -35" width="0.14" height="180" color="#f5f0c8" material="opacity: 0.9"></a-plane>
+
+        <a-plane rotation="-90 0 0" position="-12 0 -35" width="16" height="180" color="#395b33"></a-plane>
+        <a-plane rotation="-90 0 0" position="12 0 -35" width="16" height="180" color="#395b33"></a-plane>
+
+        <a-entity id="billboard-left" position="-8.6 2.7 -24">
+          <a-image src="#panel-image" width="4" height="2.5"></a-image>
+          <a-text value="SPIKE RUN" align="center" width="10" color="#effdff" position="0 0 0.1"></a-text>
+        </a-entity>
+      </a-entity>
+
+      <a-entity id="car-root" position="0 0.9 8" rotation="0 0 0" kinematic-body>
+        <a-entity id="car-model" gltf-model="#centerpiece-model" position="0 0 0" rotation="0 180 0" scale="1 1 1"></a-entity>
+        <a-light type="point" color="#a9efff" intensity="0.55" distance="14" position="-0.8 0.2 -2.4"></a-light>
+        <a-light type="point" color="#a9efff" intensity="0.55" distance="14" position="0.8 0.2 -2.4"></a-light>
+        <a-text value="BOOST-7" align="center" width="7" color="#effdff" position="0 1.25 0.8"></a-text>
+        <a-entity id="camera-rig" position="0 3.4 7.4">
+          <a-camera look-controls="enabled: false"></a-camera>
+        </a-entity>
+      </a-entity>
+
+      <a-entity id="obstacle-root"></a-entity>
+    </a-scene>
+  </body>
+</html>

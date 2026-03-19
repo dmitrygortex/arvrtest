@@ -1,0 +1,161 @@
+:root {
+  --hud-bg: rgba(7, 18, 28, 0.84);
+  --hud-border: rgba(124, 238, 255, 0.72);
+  --hud-text: #effcff;
+  --hud-accent: #72f4ff;
+  --hud-danger: #ff7d71;
+  --hud-warn: #ffe184;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  color: var(--hud-text);
+  background: #06111b;
+}
+
+a-scene {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+
+.hud {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 20;
+  width: min(410px, calc(100vw - 32px));
+  padding: 18px 20px;
+  border-radius: 22px;
+  border: 2px solid var(--hud-border);
+  background: linear-gradient(180deg, rgba(17, 46, 64, 0.92), rgba(6, 17, 27, 0.88));
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.hud.is-hit {
+  transform: scale(1.02);
+  box-shadow: 0 0 0 3px rgba(255, 125, 113, 0.65), 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+.hud h1 {
+  margin: 0 0 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 1.35rem;
+}
+
+.hud-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 14px;
+}
+
+.hud-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.98rem;
+}
+
+.hud-label {
+  color: rgba(239, 252, 255, 0.74);
+}
+
+.hud-value {
+  font-weight: 700;
+  color: var(--hud-accent);
+}
+
+#status-value {
+  color: var(--hud-warn);
+}
+
+.hud-tip {
+  margin: 12px 0 0;
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(6, 17, 27, 0.72);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms ease;
+  z-index: 30;
+}
+
+.overlay.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.overlay-card {
+  width: min(500px, 100%);
+  padding: 28px;
+  border-radius: 28px;
+  border: 2px solid var(--hud-border);
+  background: linear-gradient(160deg, rgba(10, 30, 42, 0.96), rgba(22, 70, 92, 0.92));
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.42);
+  text-align: center;
+}
+
+.overlay-card h2 {
+  margin: 0 0 12px;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+.overlay-card p {
+  margin: 10px 0;
+  line-height: 1.45;
+}
+
+.overlay-card button {
+  margin-top: 14px;
+  padding: 12px 20px;
+  border: 0;
+  border-radius: 999px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  color: #04121d;
+  background: linear-gradient(135deg, #72f4ff, #3ca9ff);
+}
+
+.ar-instructions {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(7, 20, 29, 0.78);
+  border: 1px solid rgba(122, 240, 255, 0.65);
+  z-index: 10;
+}
+
+.ar-instructions h1,
+.ar-instructions p {
+  margin: 0;
+}
+
+.ar-instructions p + p {
+  margin-top: 8px;
+}

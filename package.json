@@ -1,0 +1,9 @@
+{
+  "name": "aframe-hybrid-mini-game",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Desktop-first A-Frame lab game with AR.js GPS demo",
+  "scripts": {
+    "test": "node --test"
+  }
+}

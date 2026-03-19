@@ -36,3 +36,4 @@ python3 -m http.server 8000
 - Use HTTPS or GitHub Pages hosting.
 - The `ar.html` page contains GPS-based AR.js entities and requests camera and location permissions when opened.
 # arvrtest
+# arvrtest

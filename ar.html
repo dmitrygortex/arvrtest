@@ -13,8 +13,15 @@
   <body>
     <div class="ar-instructions">
       <h1>AR Spike Run</h1>
-      <p>Разреши доступ к камере и геолокации. В AR используется та же машина, что и в desktop-версии.</p>
+      <p>Разреши доступ к камере и геолокации. После первого GPS лока трасса появится рядом с тобой.</p>
       <p id="ar-status">Ожидание GPS...</p>
+      <p>Score: <span id="ar-score-value">0</span> | Time: <span id="ar-time-value">0.0</span></p>
+    </div>
+
+    <div class="ar-controls">
+      <button id="ar-left-button" type="button">Left</button>
+      <button id="ar-start-button" type="button">Start</button>
+      <button id="ar-right-button" type="button">Right</button>
     </div>
 
     <a-scene
@@ -26,16 +33,6 @@
       </a-assets>
 
       <a-camera gps-new-camera="gpsMinDistance: 5"></a-camera>
-
-      <a-entity gps-new-entity-place="latitude: 55.751244; longitude: 37.618423" position="0 2 0">
-        <a-entity gltf-model="#centerpiece-model" position="0 0 0" rotation="0 180 0" scale="0.5 0.5 0.5"></a-entity>
-        <a-text value="Player Car" align="center" position="0 6 0" scale="20 20 20" color="#ffffff"></a-text>
-      </a-entity>
-
-      <a-entity gps-new-entity-place="latitude: 55.751844; longitude: 37.617823" position="0 2 0">
-        <a-cone color="#ff7c70" radius-bottom="4" radius-top="0.8" height="10"></a-cone>
-        <a-text value="Hazard Marker" align="center" position="0 8 0" scale="24 24 24" color="#fff5d6"></a-text>
-      </a-entity>
     </a-scene>
   </body>
 </html>

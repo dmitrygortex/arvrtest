@@ -44,11 +44,12 @@ test('index.html includes the required desktop scene structure', () => {
 test('desktop and AR pages both use the same glb car model', () => {
   const html = readFile('index.html');
   const arHtml = readFile('ar.html');
+  const arScript = readFile('src/ar.js');
 
   assert.match(html, /id="car-model"/i);
   assert.match(html, /gltf-model="#centerpiece-model"/i);
   assert.match(arHtml, /<a-asset-item id="centerpiece-model"/i);
-  assert.match(arHtml, /gltf-model="#centerpiece-model"/i);
+  assert.match(arScript, /gltf-model', '#centerpiece-model'|gltf-model", "#centerpiece-model"|setAttribute\('gltf-model', '#centerpiece-model'\)/i);
 });
 
 test('desktop scene stylesheet makes the scene fill the viewport', () => {
@@ -63,7 +64,9 @@ test('ar.html includes AR.js and GPS hooks', () => {
 
   assert.match(html, /ar-threex-location-only/i);
   assert.match(html, /gps-new-camera/i);
-  assert.match(html, /gps-new-entity-place/i);
+  assert.match(html, /id="ar-left-button"/i);
+  assert.match(html, /id="ar-right-button"/i);
+  assert.match(html, /id="ar-start-button"/i);
 });
 
 test('README describes local launch and GitHub Pages deployment', () => {

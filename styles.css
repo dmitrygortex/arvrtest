@@ -143,12 +143,13 @@ a-scene {
   position: fixed;
   left: 12px;
   right: 12px;
-  bottom: 12px;
+  top: 12px;
   padding: 14px 16px;
   border-radius: 18px;
   background: rgba(7, 20, 29, 0.78);
   border: 1px solid rgba(122, 240, 255, 0.65);
   z-index: 10;
+  backdrop-filter: blur(6px);
 }
 
 .ar-instructions h1,
@@ -175,9 +176,36 @@ a-scene {
   padding: 14px 12px;
   border: 0;
   border-radius: 18px;
-  background: rgba(7, 20, 29, 0.82);
+  background: rgba(7, 20, 29, 0.88);
   color: var(--hud-text);
   border: 1px solid rgba(122, 240, 255, 0.65);
   font: inherit;
   font-weight: 700;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+}
+
+.ar-overlay-card {
+  width: min(420px, calc(100vw - 32px));
+}
+
+#ar-overlay-title {
+  color: var(--hud-text);
+}
+
+#ar-overlay-text {
+  color: rgba(239, 252, 255, 0.84);
+}
+
+@media (max-width: 720px) {
+  .ar-instructions {
+    padding: 12px 14px;
+  }
+
+  .ar-instructions h1 {
+    font-size: 1.15rem;
+  }
+
+  .ar-controls button {
+    padding: 13px 10px;
+  }
 }

@@ -67,6 +67,10 @@ test('ar.html includes AR.js and GPS hooks', () => {
   assert.match(html, /id="ar-left-button"/i);
   assert.match(html, /id="ar-right-button"/i);
   assert.match(html, /id="ar-start-button"/i);
+  assert.match(html, /id="ar-overlay"/i);
+  assert.match(html, /id="ar-overlay-title"/i);
+  assert.match(html, /id="ar-overlay-text"/i);
+  assert.match(html, /id="ar-restart-button"/i);
 });
 
 test('README describes local launch and GitHub Pages deployment', () => {

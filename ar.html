@@ -13,9 +13,17 @@
   <body>
     <div class="ar-instructions">
       <h1>AR Spike Run</h1>
-      <p>Разреши доступ к камере и геолокации. После первого GPS лока трасса появится рядом с тобой.</p>
+      <p>Разреши доступ к камере и геолокации. После GPS lock трасса появится перед тобой ниже уровня камеры.</p>
       <p id="ar-status">Ожидание GPS...</p>
       <p>Score: <span id="ar-score-value">0</span> | Time: <span id="ar-time-value">0.0</span></p>
+    </div>
+
+    <div id="ar-overlay" class="overlay">
+      <div class="overlay-card ar-overlay-card">
+        <h2 id="ar-overlay-title">AR Spike Run</h2>
+        <p id="ar-overlay-text">Нажми Start после GPS lock и уворачивайся от шипов.</p>
+        <button id="ar-restart-button" type="button">Play Again</button>
+      </div>
     </div>
 
     <div class="ar-controls">

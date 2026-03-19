@@ -146,8 +146,8 @@
 
       trackRoot = document.createElement('a-entity');
       trackRoot.id = 'ar-track-root';
-      trackRoot.setAttribute('position', '0 -2.8 -8');
-      trackRoot.setAttribute('rotation', '-42 0 0');
+      trackRoot.setAttribute('position', '0 -4.2 -9');
+      trackRoot.setAttribute('rotation', '0 0 0');
       trackRoot.setAttribute('scale', '1.35 1.35 1.35');
       trackRoot.innerHTML = `
         <a-plane rotation="-90 0 0" width="8" height="34" color="#141b22" position="0 0 -12"></a-plane>
@@ -216,7 +216,7 @@
       updateHud();
       renderLanePosition();
       resetHazards();
-      setStatus('AR run active. Трасса вынесена ниже, дальше и под большим наклоном для вида сверху.');
+      setStatus('AR run active. Трасса лежит ниже камеры параллельно полу, смотри на неё сверху вниз.');
     }
 
     function handleLaneShift(direction) {
@@ -282,8 +282,8 @@
       buildGame(config);
       state.ready = true;
       updateHud();
-      setOverlay('AR Spike Run', 'GPS пойман. Нажми Start, затем держи телефон ровно и смотри чуть вниз на трассу.', true);
-      setStatus('GPS ready. Трасса вынесена ниже, дальше и под наклоном, чтобы она читалась как вид сверху.');
+      setOverlay('AR Spike Run', 'GPS пойман. Нажми Start и смотри вниз: трасса лежит на полу перед тобой.', true);
+      setStatus('GPS ready. Трасса лежит ниже камеры параллельно полу.');
     });
 
     leftButton.addEventListener('click', () => handleLaneShift(-1));

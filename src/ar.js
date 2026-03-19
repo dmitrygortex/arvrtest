@@ -61,6 +61,7 @@
 
     let config = null;
     let gameAnchor = null;
+    let trackRoot = null;
     let carEntity = null;
     let hazardEntities = [];
     let lastFrame = 0;
@@ -119,7 +120,11 @@
         `latitude: ${anchorConfig.anchor.latitude}; longitude: ${anchorConfig.anchor.longitude}`
       );
 
-      gameAnchor.innerHTML = `
+      trackRoot = document.createElement('a-entity');
+      trackRoot.id = 'ar-track-root';
+      trackRoot.setAttribute('position', '0 -1.4 -4');
+      trackRoot.setAttribute('rotation', '-18 0 0');
+      trackRoot.innerHTML = `
         <a-plane rotation="-90 0 0" width="6" height="28" color="#20262d" position="0 0 -10"></a-plane>
         <a-plane rotation="-90 0 0" width="0.12" height="28" color="#f5f0c8" position="0 0.01 -10"></a-plane>
         <a-plane rotation="-90 0 0" width="0.08" height="28" color="#f5f0c8" position="-0.95 0.01 -10"></a-plane>
@@ -127,17 +132,18 @@
         <a-plane rotation="-90 0 0" width="16" height="28" color="#395b33" position="0 -0.01 -10"></a-plane>
         <a-text value="AR SPIKE RUN" align="center" width="10" color="#ffffff" position="0 2 -2"></a-text>
       `;
+      gameAnchor.appendChild(trackRoot);
 
       carEntity = document.createElement('a-entity');
       carEntity.id = 'ar-car-model';
       carEntity.setAttribute('gltf-model', '#centerpiece-model');
       carEntity.setAttribute('rotation', '0 180 0');
       carEntity.setAttribute('scale', '0.38 0.38 0.38');
-      gameAnchor.appendChild(carEntity);
+      trackRoot.appendChild(carEntity);
 
       hazardEntities = anchorConfig.hazardOffsets.map((hazardConfig, index) => {
         const entity = buildHazardEntity(index, hazardConfig);
-        gameAnchor.appendChild(entity);
+        trackRoot.appendChild(entity);
         return {
           entity,
           lane: hazardConfig.lane,
@@ -236,7 +242,7 @@
       buildGame(config);
       state.ready = true;
       updateHud();
-      setStatus('GPS ready. Нажми Start, затем медленно поверни телефон, если трасса не видна сразу.');
+      setStatus('GPS ready. Трасса вынесена ниже и вперёд. Нажми Start и при необходимости слегка поверни телефон.');
     });
 
     leftButton.addEventListener('click', () => handleLaneShift(-1));
